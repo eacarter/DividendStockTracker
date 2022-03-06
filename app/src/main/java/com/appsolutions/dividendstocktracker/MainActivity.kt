@@ -11,6 +11,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import com.appsolutions.dividendstocktracker.databinding.ActivityMainBinding
+import com.appsolutions.dividendstocktracker.dialog.AddTickerDialog
 import com.appsolutions.dividendstocktracker.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,6 +35,9 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.fab.setOnClickListener { view ->
+
+            AddTickerDialog().show(supportFragmentManager, "Ticker Dialog")
+
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }

@@ -9,7 +9,28 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="PLease Enter Ticker Symbol"
+        android:layout_margin="10dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/num_shares_edittext"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Number of shares purchased"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@id/ticker_edittext"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/cps_edittext"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Cost of Shares"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@id/num_shares_edittext"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

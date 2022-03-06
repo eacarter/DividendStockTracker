@@ -1,6 +1,9 @@
 package com.appsolutions.dividendstocktracker.modules
 
+import android.content.Context
+import androidx.room.Room
 import com.appsolutions.dividendstocktracker.data.DividendApi
+import com.appsolutions.dividendstocktracker.data.TickerDatabase
 import com.appsolutions.dividendstocktracker.repository.DefaultRepository
 import com.appsolutions.dividendstocktracker.repository.DividendRepository
 import com.appsolutions.dividendstocktracker.util.DispatcherProvider
@@ -9,6 +12,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -28,6 +32,20 @@ object AppModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(DividendApi::class.java)
+
+    @Singleton
+    @Provides
+    fun provideTickerDatabase(
+        @ApplicationContext app: Context
+    ) = Room.databaseBuilder(
+        app,
+        TickerDatabase::class.java,
+        "ticker_db"
+    ).build()
+
+    @Singleton
+    @Provides
+    fun providesTickerDao(tickerDB: TickerDatabase) = tickerDB.getTickerDao()
 
     @Singleton
     @Provides
