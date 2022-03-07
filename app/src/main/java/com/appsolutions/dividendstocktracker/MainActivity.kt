@@ -10,6 +10,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.appsolutions.dividendstocktracker.adapter.MainActivityAdapter
 import com.appsolutions.dividendstocktracker.databinding.ActivityMainBinding
 import com.appsolutions.dividendstocktracker.dialog.AddTickerDialog
 import com.appsolutions.dividendstocktracker.viewmodels.MainViewModel
@@ -29,10 +31,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        viewModel.getDividend("QYLD").observe(this, {
-            binding.textview.text = it.results[0].frequency.toString()
+        viewModel.getTickerList().observe(this, {
+            binding.mainRecyclerView.apply{
+                adapter = MainActivityAdapter(it)
+                layoutManager = LinearLayoutManager(this@MainActivity)
+            }
         })
-
 
         binding.fab.setOnClickListener { view ->
 

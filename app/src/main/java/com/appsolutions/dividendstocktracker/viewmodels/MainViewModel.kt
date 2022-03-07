@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.appsolutions.dividendstocktracker.data.Ticker
 import com.appsolutions.dividendstocktracker.models.Dividend
 import com.appsolutions.dividendstocktracker.repository.DividendRepository
 import com.appsolutions.dividendstocktracker.repository.TickerRepository
@@ -15,17 +16,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val tickerDBRepo: TickerRepository,
-    private val diviRepo: DividendRepository, //TODO: Remove
-    private val dispatchers: DispatcherProvider): ViewModel() {
+    private val tickerDBRepo: TickerRepository): ViewModel() {
 
-        fun getDividend(ticker: String) : LiveData<Dividend> {
-            var result = MutableLiveData<Dividend>()
+    fun getTickerList(): LiveData<List<Ticker>> {
+        return tickerDBRepo.getTickerList()
+    }
 
-            viewModelScope.launch(dispatchers.io) {
-                result.postValue(diviRepo.getSymbol(ticker).data)
-            }
+    fun getAnnualTotal(): Double?{
+        //TODO
+        return null
+    }
 
-            return result
-        }
+    fun getTotalYield(): Double?{
+        //TODO
+        return null
+    }
 }
