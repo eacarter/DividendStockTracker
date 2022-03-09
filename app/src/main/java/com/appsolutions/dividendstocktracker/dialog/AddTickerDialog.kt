@@ -34,23 +34,23 @@ class AddTickerDialog : DialogFragment() {
                 .setPositiveButton("Add",
                     DialogInterface.OnClickListener { dialog, id ->
                         if(symbol.text.isEmpty() || numOS.text.isEmpty() || costPS.text.isEmpty()){
-                            Snackbar.make(view, "One or More Fields aren't full ", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show()
+//                            Snackbar.make(view, "One or More Fields aren't full ", Snackbar.LENGTH_LONG)
+//                                .setAction("Action", null).show()
                         }
                         else{
                             var num = numOS.text.toString()
                             var cost = costPS.text.toString()
-                            viewModel.getDividend(symbol.text.toString(), num.toDouble(), cost.toDouble()).observe(this, {
-                                if(it != null){
+                            viewModel.getDividend(symbol.text.toString(), num.toDouble(), cost.toDouble()).observe(this) {
+                                if (it != null) {
                                     Snackbar.make(view, "Ticker Added ", Snackbar.LENGTH_LONG)
                                         .setAction("Action", null).show()
                                 }
-                            })
+                            }
                         }
                     })
                 .setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->
-                        getDialog()!!.cancel()
+                        getDialog()!!.dismiss()
                     })
             builder.create()
 

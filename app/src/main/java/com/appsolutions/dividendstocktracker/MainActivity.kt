@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.appsolutions.dividendstocktracker.adapter.MainActivityAdapter
 import com.appsolutions.dividendstocktracker.databinding.ActivityMainBinding
 import com.appsolutions.dividendstocktracker.dialog.AddTickerDialog
+import com.appsolutions.dividendstocktracker.util.DollarFormatter
 import com.appsolutions.dividendstocktracker.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,20 +31,28 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        var dollarFormatter = DollarFormatter()
 
-        viewModel.getTickerList().observe(this, {
-            binding.mainRecyclerView.apply{
+        var total = 0.0;
+
+        viewModel.getTickerList().observe(this) {
+            binding.mainRecyclerView.apply {
                 adapter = MainActivityAdapter(it)
                 layoutManager = LinearLayoutManager(this@MainActivity)
             }
-        })
+
+            for(i in it){
+                total += (i.tickerCashAmt * i.tickerNumShares) * i.tickerFrequency
+            }
+            binding.annualTotal.text = "$"+dollarFormatter.DecimalFormatter(total)
+
+            total = 0.0
+        }
 
         binding.fab.setOnClickListener { view ->
 
             AddTickerDialog().show(supportFragmentManager, "Ticker Dialog")
 
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
         }
     }
 }

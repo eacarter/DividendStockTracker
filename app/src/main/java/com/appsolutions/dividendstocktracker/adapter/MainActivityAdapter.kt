@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.appsolutions.dividendstocktracker.R
 import com.appsolutions.dividendstocktracker.data.Ticker
+import com.appsolutions.dividendstocktracker.util.DollarFormatter
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 class MainActivityAdapter(private val tickers: List<Ticker>) :
     Adapter<MainActivityAdapter.ViewHolder>() {
@@ -22,11 +25,13 @@ class MainActivityAdapter(private val tickers: List<Ticker>) :
     }
 
     override fun onBindViewHolder(holder: MainActivityAdapter.ViewHolder, position: Int) {
+        val dollarFormatter = DollarFormatter()
         val item = tickers[position]
 
         holder.symbolItem.text = item.tickerSymbol
-        holder.nosItem.text= item.tickerCashAmt.toString()
-        holder.annual.text = (item.tickerCashAmt * item.tickerNumShares).toString()
+
+        holder.nosItem.text= "$"+ dollarFormatter.DecimalFormatter(item.tickerCashAmt)
+        holder.annual.text = "$"+ dollarFormatter.DecimalFormatter((item.tickerCashAmt * item.tickerNumShares) * item.tickerFrequency)
     }
 
     override fun getItemCount(): Int {

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.appsolutions.dividendstocktracker.data.Ticker
 import com.appsolutions.dividendstocktracker.models.Dividend
-import com.appsolutions.dividendstocktracker.repository.DividendRepository
+import com.appsolutions.dividendstocktracker.repository.MarketRepository
 import com.appsolutions.dividendstocktracker.repository.TickerRepository
 import com.appsolutions.dividendstocktracker.util.DispatcherProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AddTickerViewModel @Inject constructor(
     private val tickerDBRepo: TickerRepository,
-    private val diviRepo: DividendRepository,
+    private val diviRepo: MarketRepository,
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 

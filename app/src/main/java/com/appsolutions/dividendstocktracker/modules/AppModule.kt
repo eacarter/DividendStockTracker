@@ -5,20 +5,17 @@ import androidx.room.Room
 import com.appsolutions.dividendstocktracker.data.DividendApi
 import com.appsolutions.dividendstocktracker.data.TickerDatabase
 import com.appsolutions.dividendstocktracker.repository.DefaultRepository
-import com.appsolutions.dividendstocktracker.repository.DividendRepository
+import com.appsolutions.dividendstocktracker.repository.MarketRepository
 import com.appsolutions.dividendstocktracker.util.DispatcherProvider
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -49,7 +46,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun providesDividendRepository(api: DividendApi) : DividendRepository = DefaultRepository(api)
+    fun providesDividendRepository(api: DividendApi) : MarketRepository = DefaultRepository(api)
 
     @Singleton
     @Provides
